@@ -6,11 +6,8 @@
 #include <memory>
 
 class Array {
-
-    
 private:
     std::vector<std::unique_ptr<Figure>> figures;
-
 public:
     void addFigure(std::unique_ptr<Figure> figure);
     void removeFigure(int index);
@@ -24,4 +21,5 @@ public:
     Array& operator=(const Array& other);
     Array(Array&& other) noexcept = default;
     Array& operator=(Array&& other) noexcept = default;
+
 };
