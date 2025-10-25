@@ -1,8 +1,5 @@
 #include "Array.h"
 #include <iostream>
-
-
-
 void Array::addFigure(std::unique_ptr<Figure> figure) {
     figures.push_back(std::move(figure));
 }
