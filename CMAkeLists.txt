@@ -1,0 +1,53 @@
+cmake_minimum_required(VERSION 3.14)
+
+if(POLICY CMP0091)
+  cmake_policy(SET CMP0091 NEW)
+endif()
+
+if(MSVC)
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
+
+project(FiguresRotation)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include(FetchContent)
+
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+add_executable(figures_app 
+    main.cpp 
+    Point.cpp 
+    Figure.cpp 
+    Triangle.cpp 
+    Square.cpp 
+    Rectangle.cpp 
+    Array.cpp
+)
+
+add_executable(test_figures 
+    test_figures.cpp 
+    Point.cpp 
+    Figure.cpp 
+    Triangle.cpp 
+    Square.cpp 
+    Rectangle.cpp
+)
+target_link_libraries(test_figures gtest_main)
+
+enable_testing()
+add_test(NAME FiguresTest COMMAND test_figures)
+
+if(MSVC)
+    target_compile_options(figures_app PRIVATE /W4)
+    target_compile_options(test_figures PRIVATE /W4)
+else()
+    target_compile_options(figures_app PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(test_figures PRIVATE -Wall -Wextra -pedantic)
+endif()
